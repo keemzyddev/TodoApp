@@ -1,0 +1,25 @@
+.todo{
+    background-color: rgb(0, 255, 145);
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 2px;
+    padding: 2px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.completed{
+    border-left: 3px solid green;
+}
+
+.check{
+    font-size: small;
+    color: green;
+}
+
+.remove{
+    color: red;
+    cursor: pointer;
+    font-size: larger;
+}
