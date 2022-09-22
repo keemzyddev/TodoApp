@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import cors from "cors";
 import { Todos } from "./Todos.js";
 
-
 const app = express();
 app.use(cors());
 
@@ -23,6 +22,7 @@ const PORT = 5000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// add todo
 app.post("/todo", async (req, res) => {
   try {
     const todo = await Todos.create(req.body);
@@ -33,6 +33,7 @@ app.post("/todo", async (req, res) => {
   }
 });
 
+//get todos
 app.get("/", async (req, res) => {
   try {
     const todos = await Todos.find();
@@ -42,21 +43,27 @@ app.get("/", async (req, res) => {
     console.log(error);
   }
 });
+
+//update isCompleted to true/false
 app.patch("/todo/:id", async (req, res) => {
-  const { id } = req.params;
-  const { title, isCompleted } = req.body;
+  const { isCompleted } = req.body;
+  // console.log("req.body", req.body);
+  // console.log("req.params", req.params);
   try {
-    const todos = await Todos.findByIdAndUpdate(
-      {_id: id},
-      { $set: { title, isCompleted } },
-      { new: true } 
+    const updateTodo = await Todos.findByIdAndUpdate(
+      { _id: req.params.id },
+      { isCompleted: !isCompleted }
     );
 
-    res.status(200).json(todos);
+    res.status(200).json(updateTodo);
+
+    // console.log("updateTodo", updateTodo.isCompleted);
   } catch (error) {
     console.log(error);
   }
 });
+
+//delete todo
 app.delete("/todo/:id", async (req, res) => {
   try {
     await Todos.findByIdAndDelete(req.params.id);

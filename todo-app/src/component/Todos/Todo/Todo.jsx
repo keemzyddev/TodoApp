@@ -2,16 +2,17 @@ import { FaTimes, FaCheckDouble } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { deleteTodo, updateTodo } from "../../../redux/todoSlice";
 import "./todo.css";
-const Todo = ({ title, id, isCompleted }) => {
+const Todo = ({ title, _id, isCompleted }) => {
   const dispatch = useDispatch();
   const handleDelete = () => {
-    dispatch(deleteTodo(id));
+    dispatch(deleteTodo(_id));
   };
 
   const handleCompleted = () => {
-    dispatch(updateTodo(id));
-    
+    dispatch(updateTodo({_id, isCompleted}));
+    // console.log(isCompleted)
   };
+
   return (
     <div
       className={`todo ${isCompleted ? "completed" : ""}`}
