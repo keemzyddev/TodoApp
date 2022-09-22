@@ -9,7 +9,7 @@ const Todo = ({ title, _id, isCompleted }) => {
   };
 
   const handleCompleted = () => {
-    dispatch(updateTodo({_id, isCompleted}));
+    dispatch(updateTodo({_id, isCompleted }));
     // console.log(isCompleted)
   };
 

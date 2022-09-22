@@ -68,7 +68,18 @@ export const todosSlice = createSlice({
     [updateTodo.fulfilled]: (state, action) => {
       state.loading = false;
       // state.todoList = [...state.todoList, action.payload];
-      state.todoList = [state.todoList?.map((todo) => todo._id === action.payload && {...todo, isCompleted: !todo.isCompleted} )];
+      // state.todoList = state.todoList?.map((todo) => todo._id === action.payload && [...todo, action.payload] );
+      state.todoList = state.todoList?.map((todo) => todo._id === action.payload && {...todo } );
+      // state.todoList.map((todo) => {
+      //   if (todo._id === action.payload.id) {
+      //     return { ...todo, isCompleted: !todo.isCompleted };
+      //   }
+      //   return todo;
+      // });
+      // const toggleTodoItem = state.todos.find(
+      //   (todo) => todo._id === action.payload.id
+      // );
+      // toggleTodoItem.isCompleted = !toggleTodoItem.isCompleted;
       state.isSuccess = true;
     },
     [updateTodo.rejected]: (state, action) => {

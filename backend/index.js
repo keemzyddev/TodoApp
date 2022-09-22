@@ -52,12 +52,13 @@ app.patch("/todo/:id", async (req, res) => {
   try {
     const updateTodo = await Todos.findByIdAndUpdate(
       { _id: req.params.id },
-      { isCompleted: !isCompleted }
+      { isCompleted: !isCompleted },
+      { new: true }
     );
 
     res.status(200).json(updateTodo);
 
-    // console.log("updateTodo", updateTodo.isCompleted);
+    console.log("updateTodo", updateTodo.isCompleted);
   } catch (error) {
     console.log(error);
   }
