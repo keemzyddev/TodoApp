@@ -1,15 +1,15 @@
-import { FaPlusCircle } from "react-icons/fa"
-import "./header.css"
+import { FaPlusCircle } from "react-icons/fa";
+import "./header.css";
 const Header = ({ showAdd }) => {
   const showForm = () => {
-    showAdd()
-  }
+    showAdd();
+  };
   return (
     <header className="header">
-        <h1>Todo App</h1>
-        <FaPlusCircle className="add" onClick={showForm}/>
+      <h1>Todo App</h1>
+      <FaPlusCircle className="add" onClick={showForm} />
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

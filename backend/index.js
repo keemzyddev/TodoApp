@@ -46,13 +46,11 @@ app.get("/", async (req, res) => {
 
 //update isCompleted to true/false
 app.patch("/todo/:id", async (req, res) => {
-  const { isCompleted } = req.body;
-  // console.log("req.body", req.body);
-  // console.log("req.params", req.params);
+  const { id: _id } = req.params;
   try {
     const updateTodo = await Todos.findByIdAndUpdate(
-      { _id: req.params.id },
-      { isCompleted: !isCompleted },
+      { _id },
+      { ...req.body, isCompleted: req.body.isCompleted, _id },
       { new: true }
     );
 

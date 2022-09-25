@@ -4,8 +4,7 @@ import { addTodo } from "../../redux/todoSlice";
 import "./addForm.css";
 
 const AddForm = () => {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const [title, setTitle] = useState("");
   const [isCompleted, setIsCompleted] = useState(false);
@@ -13,8 +12,9 @@ const AddForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    
-    !title ? alert("You must add a title!") : dispatch(addTodo({ title, isCompleted }));
+    !title
+      ? alert("You must add a title!")
+      : dispatch(addTodo({ title, isCompleted }));
 
     setTitle("");
     setIsCompleted(false);

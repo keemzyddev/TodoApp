@@ -12,7 +12,7 @@ const Todos = () => {
   useEffect(() => {
     dispatch(getTodos());
   }, [dispatch]);
-// console.log(todoList)
+  
   return (
     <div className="todos">
       {todoList?.map((todo) => (
@@ -21,6 +21,7 @@ const Todos = () => {
           title={todo.title}
           _id={todo._id}
           isCompleted={todo.isCompleted}
+          todo={todo}
         />
       ))}
     </div>

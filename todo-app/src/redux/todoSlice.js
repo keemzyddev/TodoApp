@@ -8,33 +8,34 @@ export const addTodo = createAsyncThunk("todos/addTodo", async (todos) => {
 
 export const getTodos = createAsyncThunk("todos/getTodos", async () => {
   const res = await axios.get("http://localhost:5000");
-//   console.log(res.data)
   return res.data;
 });
 
-export const updateTodo = createAsyncThunk("todos/updateTodo", async ({_id, isCompleted}) => {
-  // console.log("test of id and isCompleted", _id, isCompleted)
-  const res = await axios.patch(`http://localhost:5000/todo/${_id}`,  {isCompleted : isCompleted} );
-  // console.log(res.data)
-  return (res.data);
-});
+export const updateTodo = createAsyncThunk(
+  "todos/updateTodo",
+  async ({ _id, isCompleted }) => {
+    const res = await axios.patch(`http://localhost:5000/todo/${_id}`, {
+      isCompleted: !isCompleted,
+    });
+    return res.data;
+  }
+);
 
 export const deleteTodo = createAsyncThunk("todos/deleteTodo", async (id) => {
   await axios.delete(`http://localhost:5000/todo/${id}`);
-  return (id);
+  return id;
 });
-
 
 export const todosSlice = createSlice({
   name: "todos",
   initialState: {
-  todoList: [],
-  isSuccess: false,
-  loading: false,
-  error: null,
-},
-  
-    reducers: {},
+    todoList: [],
+    isSuccess: false,
+    loading: false,
+    error: null,
+  },
+
+  reducers: {},
   extraReducers: {
     [addTodo.pending]: (state) => {
       state.loading = true;
@@ -67,19 +68,11 @@ export const todosSlice = createSlice({
     },
     [updateTodo.fulfilled]: (state, action) => {
       state.loading = false;
-      // state.todoList = [...state.todoList, action.payload];
-      // state.todoList = state.todoList?.map((todo) => todo._id === action.payload && [...todo, action.payload] );
-      state.todoList = state.todoList?.map((todo) => todo._id === action.payload && {...todo } );
-      // state.todoList.map((todo) => {
-      //   if (todo._id === action.payload.id) {
-      //     return { ...todo, isCompleted: !todo.isCompleted };
-      //   }
-      //   return todo;
-      // });
-      // const toggleTodoItem = state.todos.find(
-      //   (todo) => todo._id === action.payload.id
-      // );
-      // toggleTodoItem.isCompleted = !toggleTodoItem.isCompleted;
+      state.todoList = state.todoList?.map((todo) =>
+        todo._id === action.payload._id
+          ? { ...todo, isCompleted: action.payload.isCompleted }
+          : todo
+      );
       state.isSuccess = true;
     },
     [updateTodo.rejected]: (state, action) => {
@@ -92,7 +85,9 @@ export const todosSlice = createSlice({
     },
     [deleteTodo.fulfilled]: (state, action) => {
       state.loading = false;
-      state.todoList = state.todoList.filter((todo) => todo._id !== action.payload);
+      state.todoList = state.todoList.filter(
+        (todo) => todo._id !== action.payload
+      );
       state.isSuccess = true;
     },
     [deleteTodo.rejected]: (state, action) => {

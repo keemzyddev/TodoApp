@@ -4,13 +4,13 @@ import { deleteTodo, updateTodo } from "../../../redux/todoSlice";
 import "./todo.css";
 const Todo = ({ title, _id, isCompleted }) => {
   const dispatch = useDispatch();
+
   const handleDelete = () => {
     dispatch(deleteTodo(_id));
   };
 
   const handleCompleted = () => {
-    dispatch(updateTodo({_id, isCompleted }));
-    // console.log(isCompleted)
+    dispatch(updateTodo({ _id, isCompleted }));
   };
 
   return (
@@ -19,13 +19,11 @@ const Todo = ({ title, _id, isCompleted }) => {
       onDoubleClick={handleCompleted}
     >
       <div className="title">
-        <h3>
-          {title} 
-        </h3>
+        <h3>{title}</h3>
       </div>
       <div>
-      {isCompleted && <FaCheckDouble className="check"/>}
-      <FaTimes className="remove" onClick={handleDelete} />
+        {isCompleted && <FaCheckDouble className="check" />}
+        <FaTimes className="remove" onClick={handleDelete} />
       </div>
     </div>
   );
